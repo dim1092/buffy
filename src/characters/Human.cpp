@@ -1,14 +1,17 @@
 
 
 #include "../../headers/characters/Human.hpp"
+#include "../../headers/actions/RandMove.hpp"
 
-const Color* Human::COLOR =  &Color::BLUE;
-const char Human::SYMBOL = 'h';
+const Symbol* Human::SYMBOL =  &Symbol::HUMAN;
 
-const Color* Human::getColor() const {
-   return COLOR;
+Human::Human(size_t posX, size_t posY) : Humanoid(posX, posY) {
 }
 
-char Human::getSymbol() const {
+const Symbol* Human::symbol() const {
    return SYMBOL;
+}
+
+void Human::setAction(const Field &field) {
+   updateAction(new RandMove());
 }

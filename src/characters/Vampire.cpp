@@ -1,14 +1,29 @@
 
 
 #include "../../headers/characters/Vampire.hpp"
+#include "../../headers/actions/Kill.hpp"
+#include "../../headers/actions/Chase.hpp"
 
-const Color* Vampire::COLOR =  &Color::PURPLE;
-const char Vampire::SYMBOL = 'v';
+const Symbol* Vampire::SYMBOL =  &Symbol::VAMPIRE;
 
-const Color* Vampire::getColor() const {
-   return COLOR;
+Vampire::Vampire(size_t posX, size_t posY) : Humanoid(posX, posY) {
 }
 
-char Vampire::getSymbol() const {
+Vampire::Vampire(const Humanoid& h) : Humanoid(h.posX(), posY()) {
+}
+
+const Symbol* Vampire::symbol() const {
    return SYMBOL;
 }
+
+void Vampire::setAction(const Field &field) {
+   Humanoid* closest = field.getClosest(this, &Symbol::HUMAN);
+   if (closest == nullptr)
+      return;
+   else if (distance(closest) == 1)
+      updateAction(new Kill(closest));
+   else
+      updateAction(new Chase(closest));
+}
+
+

@@ -1,14 +1,26 @@
 
 
 #include "../../headers/characters/Buffy.hpp"
+#include "../../headers/actions/Kill.hpp"
+#include "../../headers/actions/Chase.hpp"
+#include "../../headers/actions/RandMove.hpp"
 
-const Color* Buffy::COLOR =  &Color::YELLOW;
-const char Buffy::SYMBOL = 'B';
+const Symbol* Buffy::SYMBOL =  &Symbol::BUFFY;
 
-const Color *Buffy::getColor() const {
-   return COLOR;
+Buffy::Buffy(size_t posX, size_t posY) : Humanoid(posX, posY) {
 }
 
-char Buffy::getSymbol() const {
+const Symbol* Buffy::symbol() const{
    return SYMBOL;
 }
+
+void Buffy::setAction(const Field &field) {
+   Humanoid* closest = field.getClosest(this, &Symbol::VAMPIRE);
+   if (closest == nullptr)
+      updateAction(new RandMove());
+   else if (distance(closest) == 1)
+      updateAction(new Kill(closest));
+   else
+      updateAction(new Chase(closest));
+}
+

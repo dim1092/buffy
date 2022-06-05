@@ -3,22 +3,20 @@
 #ifndef BUFFY_HUMAN_HPP
 #define BUFFY_HUMAN_HPP
 
-#include "Character.hpp"
-
+#include "Humanoid.hpp"
 /**
- * Implementation of Character class to represent a defenseless human
+ * Implementation of Humanoid class to represent a defenseless human
  * @author De Bleser Dimitri
  * @author Vincent Peer
  */
-class Human : public Character {
-   static const Color* COLOR;
-   static const char SYMBOL;
-public:
-   Human();
-   Human(Position);
-   const Color* getColor() const override;
-   char getSymbol() const override;
+class Human : public Humanoid {
+   static const Symbol* SYMBOL;
 
+public:
+   Human(size_t posX, size_t posY);
+   ~Human() = default;
+   void setAction(const Field &field) override;
+   const Symbol* symbol() const override;
 };
 
 

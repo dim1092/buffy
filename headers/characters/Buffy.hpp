@@ -3,19 +3,20 @@
 #define BUFFY_BUFFY_HPP
 
 
-#include "Character.hpp"
+#include "Humanoid.hpp"
 
 /**
  * Implementation of killer class to represent the character buffy the vampire slayer
  * @author De Bleser Dimitri
  * @author Vincent Peer
  */
-class Buffy : public Character {
-   static const Color* COLOR;
-   static const char SYMBOL;
+class Buffy : public Humanoid {
+   static const Symbol* SYMBOL;
 public:
-   const Color* getColor() const override;
-   char getSymbol() const override;
+   Buffy(size_t posX, size_t posY);
+   ~Buffy() = default;
+   void setAction(const Field &field) override;
+   const Symbol* symbol() const override;
 };
 
 
