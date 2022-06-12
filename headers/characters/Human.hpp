@@ -13,7 +13,7 @@ class Human : public Humanoid {
    static const Symbol* SYMBOL;
 
 public:
-   Human(size_t posX, size_t posY);
+   Human(int posX, int posY);
    ~Human() = default;
    void setAction(const Field &field) override;
    const Symbol* symbol() const override;

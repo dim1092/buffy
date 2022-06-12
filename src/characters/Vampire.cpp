@@ -3,13 +3,15 @@
 #include "../../headers/characters/Vampire.hpp"
 #include "../../headers/actions/Kill.hpp"
 #include "../../headers/actions/Chase.hpp"
+#include "../../headers/actions/Bite.hpp"
+#include "../../headers/utils/Rand.hpp"
 
 const Symbol* Vampire::SYMBOL =  &Symbol::VAMPIRE;
 
-Vampire::Vampire(size_t posX, size_t posY) : Humanoid(posX, posY) {
+Vampire::Vampire(int posX, int posY) : Humanoid(posX, posY) {
 }
 
-Vampire::Vampire(const Humanoid& h) : Humanoid(h.posX(), posY()) {
+Vampire::Vampire(const Humanoid& h) : Humanoid(h.posX(), h.posY()) {
 }
 
 const Symbol* Vampire::symbol() const {
@@ -20,8 +22,14 @@ void Vampire::setAction(const Field &field) {
    Humanoid* closest = field.getClosest(this, &Symbol::HUMAN);
    if (closest == nullptr)
       return;
-   else if (distance(closest) == 1)
-      updateAction(new Kill(closest));
+   else if (distance(closest) == 1) {
+      // Kill or transform 50/50 chance
+      int rand = Rand::getInstance().nextInt(0, RAND_MAX);
+      if (rand % 2 == 0)
+         updateAction(new Kill(closest));
+      else
+         updateAction(new Bite(closest));
+   }
    else
       updateAction(new Chase(closest));
 }

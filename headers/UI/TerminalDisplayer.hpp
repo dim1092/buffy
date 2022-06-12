@@ -8,11 +8,25 @@
 
 #include "../simulation/Field.hpp"
 
+/**
+ * Class to display the simulation's field in a terminal
+ * @author De Bleser Dimitri
+ * @author Peer Vincent
+ */
 class TerminalDisplayer {
-//   const Symbol*** map;
+
+   /**
+    * Print horizontal limits of the field
+    * @param width width of the field
+    */
+   static void printHorizontalBorder(size_t width) ;
 public:
-   TerminalDisplayer(const Field& field);
-   void displayField(const Field& field) const;
+
+   /**
+    * Print the field and its content on the terminal
+    * @param field to be printed
+    */
+   static void displayField(const Field& field) ;
 };
 
 

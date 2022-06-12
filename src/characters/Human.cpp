@@ -5,7 +5,7 @@
 
 const Symbol* Human::SYMBOL =  &Symbol::HUMAN;
 
-Human::Human(size_t posX, size_t posY) : Humanoid(posX, posY) {
+Human::Human(int posX, int posY) : Humanoid(posX, posY) {
 }
 
 const Symbol* Human::symbol() const {

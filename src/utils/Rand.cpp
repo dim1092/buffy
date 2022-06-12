@@ -3,9 +3,7 @@
 //
 
 #include "../../headers/utils/Rand.hpp"
-#include <stdlib.h>
-
-using namespace std;
+#include <cstdlib>
 
 Rand::Rand() {
    srand(SEED);
@@ -16,8 +14,8 @@ const Rand& Rand::getInstance() {
    return instance;
 }
 
-const int Rand::nextInt(int min, int max) const {
-   return int ((double) rand() / (RAND_MAX + 1) * max - min);
+int Rand::nextInt(int min, int max) const {
+   return std::rand() % (max - min + 1) + min;
 }
 
 

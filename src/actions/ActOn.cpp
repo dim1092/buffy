@@ -4,7 +4,7 @@
 
 #include "../../headers/actions/ActOn.hpp"
 
-ActOn::ActOn(Humanoid* h) : Action(), victim(h) {
+ActOn::ActOn(Humanoid* victim) : Action(), victim(victim) {
 }
 
 Humanoid* ActOn::getVictim() const {

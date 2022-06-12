@@ -9,6 +9,8 @@ Bite::Bite(Humanoid* h) : ActOn(h) {
 }
 
 void Bite::execute(Humanoid* h, Field& field) const {
-   field.add(new Vampire(*getVictim()));
-   getVictim()->kill();
+   if (getVictim()->isAlive()) {
+      field.add(new Vampire(*getVictim()));
+      getVictim()->kill();
+   }
 }

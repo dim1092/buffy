@@ -5,26 +5,20 @@
 #include "../headers/BuffyStats.hpp"
 #include <cstdlib>
 #include "../headers/simulation/Field.hpp"
-#include "../headers/UI/TerminalDisplayer.hpp"
 
 using namespace std;
 
-BuffyStats::BuffyStats(unsigned fieldWidth, unsigned fieldHeight,
-                       unsigned nbVampires, unsigned nbHumans, unsigned iterations)
-   : _timesWon(0), ITERATIONS(iterations) {
+BuffyStats::BuffyStats(size_t fieldWidth, size_t fieldHeight, unsigned nbVampires, unsigned nbHumans)
+   : _timesWon(0) {
 
    for (size_t i = 0; i < ITERATIONS; ++i) {
-      Field f(fieldWidth, fieldHeight);
-      f.addVampire(nbVampires);
-      f.addHuman(nbHumans);
+      Field f(fieldWidth, fieldHeight, nbVampires, nbHumans);
 
-      TerminalDisplayer disp(f);
-//      disp.displayField(f);
-      while(f.hasVamp()) {
+      while(f.isGameOver()) {
          f.nextTurn();
       }
 
-      if (f.hasHuman())
+      if (f.won())
          ++_timesWon;
    }
 }

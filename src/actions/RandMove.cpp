@@ -8,5 +8,6 @@ RandMove::RandMove() : Action() {
 }
 
 void RandMove::execute(Humanoid* h, Field &field) const {
-   h->move(Rand::getInstance().nextInt(-1, 1), Rand::getInstance().nextInt(-1, 1), field);
+   h->move(Rand::getInstance().nextInt(-1, 1),
+           Rand::getInstance().nextInt(-1, 1), field);
 }

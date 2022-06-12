@@ -1,12 +1,21 @@
-//
-// Created by dimde on 5/30/2022.
-//
 
 #include <iostream>
-#include "headers/BuffyStats.hpp"
+#include "headers/Controller.h"
 
+/**
+ * Main class of our buffy simulation, gets program parameters and lunches a controller
+ * @author De Bleser Dimitri
+ * @author Vincent Peer
+ */
+using namespace std;
+int main(int argc, char** argv) {
+   if (argc < 5) {
+      cout << "Missing parameters" << endl
+           << "usage : buffy <field width> <field height> <number of vampires> <number of humans>" << endl;
+      return EXIT_FAILURE;
+   }
 
-int main() {
-   BuffyStats stats(50, 50, 10, 20, 1);
-   std::cout << stats.successRate();
+   Controller c((unsigned) atoi(argv[1]), (unsigned) atoi(argv[2]),
+                (unsigned) atoi(argv[3]), (unsigned) atoi(argv[4]));
+   c.run();
 }

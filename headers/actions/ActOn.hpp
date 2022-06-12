@@ -9,10 +9,23 @@
 #include "../characters/Humanoid.hpp"
 #include "Action.hpp"
 
+/**
+ * Abstract class specifying an Action acted upon an other Humanoid
+ * @author De bleser Dimitri
+ * @author Peer vincent
+ */
 class ActOn : public Action {
-   Humanoid* victim;
+   Humanoid* const victim;
 protected:
-   ActOn(Humanoid* h);
+   /**
+    * Constructor of class
+    * @param h Humanoid on which the action will be acted on
+    */
+   ActOn(Humanoid* victim);
+
+   /**
+    * @return The victim of the action
+    */
    Humanoid* getVictim() const;
 };
 

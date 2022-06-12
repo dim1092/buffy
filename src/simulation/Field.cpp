@@ -7,13 +7,15 @@
 #include "../../headers/utils/Rand.hpp"
 #include "../../headers/characters/Vampire.hpp"
 #include "../../headers/characters/Buffy.hpp"
+#include <iostream>
 
 using namespace std;
 
-Field::Field(unsigned int width, unsigned int height) : _humanoids(), _turn(0), _width(width), _height(height) {
-   // todo put here?
-   _humanoids.push_back(new Buffy((size_t) Rand::getInstance().nextInt(0,(int) _width),
-                                     (size_t) Rand::getInstance().nextInt(0, (int) _height)));
+Field::Field(size_t width, size_t height, unsigned nbVampires, unsigned nbHumans)
+      : _humanoids(), _turn(0), WIDTH(width), HEIGHT(height) {
+   addHumanoid<Buffy>(1);
+   addHumanoid<Human>(nbHumans);
+   addHumanoid<Vampire>(nbVampires);
 }
 
 Field::~Field() {
@@ -33,18 +35,13 @@ unsigned Field::nextTurn()
    // Enlever les humanoides tués
    for (list<Humanoid*>::iterator it = _humanoids.begin(); it != _humanoids.end(); )
       if (!(*it)->isAlive()) {
+         Humanoid* toDelete = *it;
          it = _humanoids.erase(it); // suppression de l’élément dans la liste
-         Humanoid* tmp = *it;
-         delete *it; // destruction de l’humanoide référencé
+         delete toDelete; // destruction de l’humanoide référencé
       }
       else
          ++it;
    return _turn++;
-}
-
-void Field::remove(Humanoid& h) {
-   delete &h;
-   _humanoids.remove(&h);
 }
 
 void Field::add(Humanoid* h) {
@@ -57,7 +54,7 @@ std::list<Humanoid *> Field::humanoids() const {
 
 Humanoid *Field::getClosest(const Humanoid* from, const Symbol* type) const {
    Humanoid* closest = nullptr;
-   unsigned minDistance;
+   unsigned minDistance = UINT_MAX;
 
    for (Humanoid* h : _humanoids) {
       if (h != from && h->symbol() == type && h->isAlive()) {
@@ -65,7 +62,7 @@ Humanoid *Field::getClosest(const Humanoid* from, const Symbol* type) const {
          if (dist == 1)
             return h;
 
-         if (closest == nullptr || dist < minDistance) {
+         if (dist < minDistance) {
             minDistance = dist;
             closest = h;
          }
@@ -74,39 +71,44 @@ Humanoid *Field::getClosest(const Humanoid* from, const Symbol* type) const {
    return closest;
 }
 
-unsigned Field::width() const {
-   return _width;
+size_t Field::width() const {
+   return WIDTH;
 }
 
-unsigned Field::height() const {
-   return _height;
+size_t Field::height() const {
+   return HEIGHT;
 }
 
-bool Field::hasVamp() const {
-   for (Humanoid* h : humanoids())
+bool Field::isGameOver() const {
+   for (Humanoid* h : _humanoids)
       if (h->symbol() == &Symbol::VAMPIRE)
          return true;
    return false;
 }
 
-bool Field::hasHuman() const {
-   for (Humanoid* h : humanoids())
+bool Field::won() const {
+   for (Humanoid* h : _humanoids)
       if (h->symbol() == &Symbol::HUMAN)
          return true;
    return false;
 }
 
-void Field::addHuman(unsigned int amount) {
+
+
+template<typename T >
+void Field::addHumanoid(unsigned amount) {
    for (size_t i = 0; i < amount; ++i)
-      _humanoids.push_back(new Human(Rand::getInstance().nextInt(0, _width),
-                                         Rand::getInstance().nextInt(0, _height)));
+      _humanoids.push_back(new T((size_t) Rand::getInstance().nextInt(0, (int) WIDTH - 1),
+                                 (size_t) Rand::getInstance().nextInt(0, (int)HEIGHT - 1)));
 }
 
-void Field::addVampire(unsigned int amount) {
-   for (size_t i = 0; i < amount; ++i)
-      _humanoids.push_back(new Vampire(Rand::getInstance().nextInt(0, _width),
-                                           Rand::getInstance().nextInt(0, _height)));
+bool Field::isPosFree(int posX, int posY) const {
+   for (Humanoid* h : _humanoids)
+      if (h->posX() == posX && h->posY() == posY)
+         return false;
+   return true;
 }
 
-
-
+unsigned Field::turn() const {
+   return _turn;
+}
