@@ -2,8 +2,8 @@
 // Created by dimde on 6/10/2022.
 //
 
-#ifndef BUFFY_CONTROLLER_H
-#define BUFFY_CONTROLLER_H
+#ifndef BUFFY_CONTROLLER_HPP
+#define BUFFY_CONTROLLER_HPP
 
 
 #include "simulation/Field.hpp"
@@ -58,4 +58,4 @@ public:
 };
 
 
-#endif //BUFFY_CONTROLLER_H
+#endif //BUFFY_CONTROLLER_HPP

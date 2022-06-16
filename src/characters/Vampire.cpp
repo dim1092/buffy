@@ -1,12 +1,14 @@
 
-
 #include "../../headers/characters/Vampire.hpp"
 #include "../../headers/actions/Kill.hpp"
 #include "../../headers/actions/Chase.hpp"
 #include "../../headers/actions/Bite.hpp"
 #include "../../headers/utils/Rand.hpp"
+#include "../../headers/characters/Human.hpp"
+#include "../../headers/simulation/Field.hpp"
 
 const Symbol* Vampire::SYMBOL =  &Symbol::VAMPIRE;
+
 
 Vampire::Vampire(int posX, int posY) : Humanoid(posX, posY) {
 }
@@ -18,8 +20,8 @@ const Symbol* Vampire::symbol() const {
    return SYMBOL;
 }
 
-void Vampire::setAction(const Field &field) {
-   Humanoid* closest = field.getClosest(this, &Symbol::HUMAN);
+void Vampire::setAction(const Field& field) {
+   Humanoid* closest = field.getClosest<Human>(this);
    if (closest == nullptr)
       return;
    else if (distance(closest) == 1) {
@@ -32,6 +34,10 @@ void Vampire::setAction(const Field &field) {
    }
    else
       updateAction(new Chase(closest));
+}
+
+unsigned Vampire::moveRange() const {
+   return MOVE_RANGE;;
 }
 
 

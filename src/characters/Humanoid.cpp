@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+using namespace std;
 Humanoid::Humanoid(int posX, int posY) : _posX(posX), _posY(posY), _isAlive(true), _action(nullptr) {
 }
 
@@ -12,14 +13,12 @@ Humanoid::~Humanoid() {
 
 void Humanoid::move(int offsetX, int offsetY, const Field& field) {
 
-   if (!field.isPosFree(_posX + offsetX, _posY + offsetY))
-      return; // position already occupied
+   if (!canMove(_posX + offsetX, _posY + offsetY, field))
+      return;
 
    // Limit to field borders
-   if ((_posX != (int) field.height() - 1 || offsetX < 0) && (_posX != 0 || offsetX > 0))
-      _posX += offsetX;
-   if ((_posY != (int) field.width() - 1|| offsetY < 0) && (_posY != 0 || offsetY > 0))
-      _posY += offsetY;
+   _posX = max(0, min((int) field.width() - 1, _posX + offsetX));
+   _posY = max(0, min((int) field.height() - 1, _posY + offsetY));
 }
 
 bool Humanoid::isAlive() const {
@@ -52,6 +51,10 @@ void Humanoid::executeAction(Field &field) {
 
 unsigned Humanoid::distance(const Humanoid* h) const {
    return (unsigned) sqrt(pow((double) _posX - (double) h->_posX, 2) + pow((double) _posY - (double) h->_posY, 2));
+}
+
+bool Humanoid::canMove(int offsetX, int offsetY, const Field &field) {
+   return field.isPosFree(_posX + offsetX, _posY + offsetY);
 }
 
 

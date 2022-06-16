@@ -4,10 +4,10 @@
 
 #include "../../headers/actions/RandMove.hpp"
 #include "../../headers/utils/Rand.hpp"
-RandMove::RandMove() : Action() {
+RandMove::RandMove() : Action(){
 }
 
 void RandMove::execute(Humanoid* h, Field &field) const {
-   h->move(Rand::getInstance().nextInt(-1, 1),
-           Rand::getInstance().nextInt(-1, 1), field);
+   h->move(Rand::getInstance().nextInt(- (int) h->moveRange(), (int) h->moveRange()),
+           Rand::getInstance().nextInt(- (int) h->moveRange(), (int) h->moveRange()), field);
 }

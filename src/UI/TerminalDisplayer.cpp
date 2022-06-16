@@ -17,7 +17,7 @@ void TerminalDisplayer::displayField(const Field &field) {
          map[i][j] = " ";
    // Adding humanoids
    for (Humanoid* h : field.humanoids())
-      map[h->posX()][h->posY()] = h->symbol()->toString();
+      map[h->posY()][h->posX()] = h->symbol()->toString();
 
    // Print
    printHorizontalBorder(field.width());

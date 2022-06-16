@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "headers/Controller.h"
+#include "headers/Controller.hpp"
 
 /**
  * Main class of our buffy simulation, gets program parameters and lunches a controller

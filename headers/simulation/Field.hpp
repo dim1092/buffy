@@ -1,6 +1,3 @@
-//
-// Created by dimde on 5/31/2022.
-//
 
 #ifndef BUFFY_FIELD_HPP
 #define BUFFY_FIELD_HPP
@@ -21,7 +18,12 @@ class Field {
    unsigned _turn;
    const size_t WIDTH, HEIGHT;
 
-   template<typename T>
+   /**
+    * Add humanoid to the field
+    * @tparam T Humanoid concrete class type
+    * @param amount
+    */
+   template <typename T>
    void addHumanoid(unsigned amount = 1);
 
 public:
@@ -57,12 +59,13 @@ public:
     */
    std::list<Humanoid*> humanoids() const;
 
-   /**
-    * @param from closest humanoid to find from
-    * @param type Symbol of an concrete Humanoid
-    * @return the closest Humanoid from the given Humanoid
-    */
-   Humanoid* getClosest(const Humanoid* from, const Symbol* type) const;
+    /**
+     * @tparam T Humanoid Type
+     * @param from closest humanoid to find from
+     * @return the closest Humanoid from the given Humanoid
+     */
+   template <typename T>
+   Humanoid* getClosest(const Humanoid* from) const;
 
    /**
     * Check if a certain position in the field is occupied by a Humanoid
@@ -95,11 +98,12 @@ public:
    bool won() const;
 
    /**
-    * @return the trun number
+    * @return the turn number
     */
    unsigned turn() const;
 
 };
 
+#include "FieldImpl.hpp"
 
 #endif //BUFFY_FIELD_HPP

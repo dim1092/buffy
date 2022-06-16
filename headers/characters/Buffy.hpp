@@ -2,6 +2,7 @@
 #ifndef BUFFY_BUFFY_HPP
 #define BUFFY_BUFFY_HPP
 
+class Field;
 
 #include "Humanoid.hpp"
 
@@ -12,11 +13,14 @@
  */
 class Buffy : public Humanoid {
    static const Symbol* SYMBOL;
+   static const unsigned MOVE_RANGE = 2;
+   bool canMove(int offsetX, int offsetY, const Field& field) override;
 public:
    Buffy(int posX, int posY);
    ~Buffy() = default;
    void setAction(const Field &field) override;
    const Symbol* symbol() const override;
+   unsigned moveRange() const override;
 };
 
 

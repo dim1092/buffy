@@ -1,13 +1,12 @@
-//
-// Created by dimde on 6/1/2022.
-//
 
 #ifndef BUFFY_ACTION_HPP
 #define BUFFY_ACTION_HPP
 
+class Field;
 class Humanoid;
 
 #include "../simulation/Field.hpp"
+#include "../characters/Humanoid.hpp"
 
 /**
  * Abstract class to define an action which can be performed by a Humanoid

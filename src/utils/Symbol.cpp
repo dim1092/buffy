@@ -11,9 +11,9 @@ const Symbol Symbol::VAMPIRE{"v", "\033[34m"}, // \033[34m for blue
 Symbol::Symbol(const char *symbol, const char* color) : SYMBOL(symbol), COLOR(color) {
 }
 
-std::string Symbol::toString() const {
-   std::string s = COLOR;
-   s.append(SYMBOL);
-   s.append("\033[0m"); // resetting color
-   return s;
-}
+   std::string Symbol::toString() const {
+      std::string s = COLOR;
+      s.append(SYMBOL);
+      s.append("\033[0m"); // resetting color
+      return s;
+   }

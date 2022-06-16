@@ -2,7 +2,7 @@
 // Created by dimde on 6/10/2022.
 //
 
-#include "../headers/Controller.h"
+#include "../headers/Controller.hpp"
 #include "../headers/BuffyStats.hpp"
 #include "../headers/UI/TerminalDisplayer.hpp"
 #include <iostream>

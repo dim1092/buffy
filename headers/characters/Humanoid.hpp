@@ -21,19 +21,37 @@ class Humanoid {
    Action* _action;
 
 protected:
+   /**
+    * Constructor
+    * @param posX
+    * @param posY
+    */
    Humanoid(int posX, int posY);
+
+   /**
+    * Sets the next action to be performed
+    * @param action
+    */
    void updateAction(Action* action);
 
+   /**
+    * Checks if this Humanoid can move to the given position
+    * @param offsetX
+    * @param offsetY
+    * @param field
+    * @return true if allowed
+    */
+   virtual bool canMove(int offsetX, int offsetY, const Field& field);
 public:
    virtual ~Humanoid();
 
    /**
-    * Move the humanoid
+    * Move the humanoid within field borders
     * @param offsetX horizontal movement length
     * @param offsetY vertical movement length
     * @param field containing the Humanoid
     */
-   void move(int offsetX, int offsetY, const Field& field);
+   virtual void move(int offsetX, int offsetY, const Field& field);
 
    /**
     * @return Symbol representing the class
@@ -77,6 +95,11 @@ public:
     * @return The distance of this Humanoid the the other
     */
    unsigned distance(const Humanoid* h) const;
+
+   /**
+    * @return Max step range per turn
+    */
+   virtual unsigned moveRange() const = 0;
 };
 
 

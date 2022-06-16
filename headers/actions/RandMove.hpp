@@ -11,7 +11,6 @@
  * @author Peer Vincent
  */
 class RandMove : public Action {
-
 public:
    RandMove();
 

@@ -14,7 +14,7 @@ BuffyStats::BuffyStats(size_t fieldWidth, size_t fieldHeight, unsigned nbVampire
    for (size_t i = 0; i < ITERATIONS; ++i) {
       Field f(fieldWidth, fieldHeight, nbVampires, nbHumans);
 
-      while(f.isGameOver()) {
+      while(!f.isGameOver()) {
          f.nextTurn();
       }
 
